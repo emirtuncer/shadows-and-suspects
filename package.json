@@ -1,0 +1,18 @@
+{
+  "name": "mistralhackathon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@mistralai/mistralai": "^1.14.1",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1"
+  }
+}

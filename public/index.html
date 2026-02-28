@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shadows &amp; Suspects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen" class="loading-screen hidden">
+    <div class="loading-content">
+      <div class="loading-orb"></div>
+      <h1 class="loading-title">Shadows &amp; Suspects</h1>
+      <p class="loading-text" data-i18n="loadingText">Building the case file...</p>
+    </div>
+  </div>
+
+  <!-- Setup Screen -->
+  <div id="setup-screen" class="setup-screen hidden">
+    <div class="setup-card">
+      <div class="setup-header">
+        <div class="loading-orb setup-orb"></div>
+        <h1 class="setup-title" data-i18n="setupTitle">Brief Your Investigation</h1>
+        <p class="setup-subtitle" data-i18n="setupSubtitle">Configure the mystery that awaits</p>
+      </div>
+
+      <div class="setup-options">
+        <!-- Language -->
+        <div class="setup-option">
+          <label class="setup-label" data-i18n="language">Language</label>
+          <div class="lang-cards" data-config="language">
+            <button class="lang-card active" data-value="en"><span class="lang-flag">&#127468;&#127463;</span><span class="lang-name">EN</span></button>
+            <button class="lang-card" data-value="tr"><span class="lang-flag">&#127481;&#127479;</span><span class="lang-name">TR</span></button>
+            <button class="lang-card" data-value="es"><span class="lang-flag">&#127466;&#127480;</span><span class="lang-name">ES</span></button>
+            <button class="lang-card" data-value="fr"><span class="lang-flag">&#127467;&#127479;</span><span class="lang-name">FR</span></button>
+            <button class="lang-card" data-value="de"><span class="lang-flag">&#127465;&#127466;</span><span class="lang-name">DE</span></button>
+          </div>
+        </div>
+
+        <!-- NPC Count -->
+        <div class="setup-option">
+          <label class="setup-label" data-i18n="personsOfInterest">Persons of Interest</label>
+          <p class="setup-hint" data-i18n="personsHint">How many suspects and witnesses? More people means more leads to chase.</p>
+          <div class="setup-btn-group" data-config="npcCount">
+            <button class="setup-btn active" data-value="3">3</button>
+            <button class="setup-btn" data-value="4">4</button>
+            <button class="setup-btn" data-value="5">5</button>
+          </div>
+        </div>
+
+        <!-- Quest Count -->
+        <div class="setup-option">
+          <label class="setup-label" data-i18n="coldCases">Cold Cases</label>
+          <p class="setup-hint" data-i18n="casesHint">How many unsolved cases are hidden in the story? Cases are cracked when you ask the right questions.</p>
+          <div class="setup-btn-group" data-config="questCount">
+            <button class="setup-btn active" data-value="3">3</button>
+            <button class="setup-btn" data-value="4">4</button>
+            <button class="setup-btn" data-value="5">5</button>
+          </div>
+        </div>
+
+        <!-- Theme -->
+        <div class="setup-option">
+          <label class="setup-label" data-i18n="setting">Setting</label>
+          <p class="setup-hint" data-i18n="settingHint">Choose the backdrop for your investigation.</p>
+          <div class="theme-cards" data-config="theme">
+            <button class="theme-card active" data-value="Film Noir City">
+              <span class="theme-icon">🌃</span>
+              <span class="theme-name">Film Noir City</span>
+            </button>
+            <button class="theme-card" data-value="Victorian Manor">
+              <span class="theme-icon">🏛️</span>
+              <span class="theme-name">Victorian Manor</span>
+            </button>
+            <button class="theme-card" data-value="Small Town Secret">
+              <span class="theme-icon">🏘️</span>
+              <span class="theme-name">Small Town Secret</span>
+            </button>
+            <button class="theme-card" data-value="Luxury Cruise Ship">
+              <span class="theme-icon">🚢</span>
+              <span class="theme-name">Luxury Cruise Ship</span>
+            </button>
+            <button class="theme-card" data-value="1920s Speakeasy">
+              <span class="theme-icon">🎷</span>
+              <span class="theme-name">1920s Speakeasy</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button id="begin-btn" class="begin-btn" data-i18n="startInvestigation">Start Investigation</button>
+    </div>
+  </div>
+
+  <!-- Game Container -->
+  <div id="game-container" class="game-container hidden">
+    <!-- Header -->
+    <header id="game-header" class="game-header">
+      <h1 id="setting-name" class="setting-name"></h1>
+      <p id="setting-description" class="setting-description"></p>
+      <p id="backstory" class="backstory"></p>
+    </header>
+
+    <!-- Main Layout -->
+    <main class="game-main">
+      <!-- NPC Panel (left) -->
+      <aside id="npc-panel" class="panel npc-panel">
+        <h2 class="panel-title" data-i18n="panelPersons">Persons of Interest</h2>
+        <div id="npc-list" class="npc-list"></div>
+      </aside>
+
+      <!-- Dialogue Panel (center) -->
+      <section class="panel dialogue-panel">
+        <div id="dialogue-header" class="dialogue-header">
+          <span id="dialogue-npc-name" data-i18n="selectPerson">Select a person of interest to begin...</span>
+          <button id="accuse-btn" class="accuse-btn hidden" data-i18n="accuseBtn">Accuse</button>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+          <div class="chat-placeholder">
+            <p data-i18n="chatPlaceholder">Choose a person of interest from the left panel to start an interrogation.</p>
+          </div>
+        </div>
+        <div id="chat-input-area" class="chat-input-area hidden">
+          <input type="text" id="chat-input" class="chat-input" data-i18n-placeholder="inputPlaceholder" placeholder="Type your question..." autocomplete="off">
+          <button id="chat-send" class="chat-send-btn" data-i18n="sendBtn">Send</button>
+        </div>
+      </section>
+
+      <!-- Case Files (right) -->
+      <aside class="panel quest-panel">
+        <h2 class="panel-title" data-i18n="panelCaseFiles">Case Files</h2>
+        <div id="investigation-brief" class="investigation-brief"></div>
+        <div id="quest-counter" class="quest-counter">0 / 3 cases opened</div>
+        <button id="hint-btn" class="hint-btn" data-i18n="getALead">Get a Lead</button>
+        <div id="quest-list" class="quest-list">
+          <div class="quest-empty" data-i18n="noCases">No cases opened yet. Interrogate persons of interest to uncover cold cases...</div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="/js/translations.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/scenario.js"></script>
+  <script src="/js/quests.js"></script>
+  <script src="/js/dialogue.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
