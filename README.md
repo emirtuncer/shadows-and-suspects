@@ -55,8 +55,9 @@ cd shadows-and-suspects
 # Install dependencies
 npm install
 
-# Create .env file
-echo "MISTRAL_API_KEY=your_api_key_here" > .env
+# Create .env file from example
+cp .env.example .env
+# Then add your Mistral API key to .env
 
 # Start the server
 npm start
